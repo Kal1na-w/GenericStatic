@@ -3,7 +3,7 @@ package atomp.spares;
 import java.util.Random;
 import java.util.function.Function;
 
-public class Engine {
+public class Engine implements Comparable<Engine> {
   protected String stuff;
   protected Integer power;
   protected Fuel fuel;
@@ -12,6 +12,16 @@ public class Engine {
     this.stuff = stuff;
     this.power = power;
     this.fuel = fuel;
+  }
+
+  @Override
+  public int compareTo(Engine o) {
+    if (this.power.equals(o.power)) {
+      return 0;
+    } else if (this.power > o.power) {
+      return 1;
+    }
+    return -1;
   }
 
   public String getStuff() {
@@ -51,12 +61,29 @@ public class Engine {
     return new Engine(staff, power, fuel);
   }
 
-}
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
 
-enum Fuel {
-  GAS,
-  PETROL,
-  DIESEL
+    Engine engine = (Engine) o;
+
+    if (!stuff.equals(engine.stuff))
+      return false;
+    if (!power.equals(engine.power))
+      return false;
+    return fuel == engine.fuel;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = stuff.hashCode();
+    result = 31 * result + power.hashCode();
+    result = 31 * result + fuel.hashCode();
+    return result;
+  }
 }
 
 

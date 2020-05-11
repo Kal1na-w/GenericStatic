@@ -2,7 +2,7 @@ package atomp;
 
 import atomp.spares.Engine;
 
-public class Car {
+public class Car implements Comparable<Car> {
   private String name;
   private Engine engine;
 
@@ -11,18 +11,14 @@ public class Car {
     this.engine = engine;
   }
 
-  public class Test {
-    public int x = 5;
-    public int y = 77;
-
-    public Test() {
-    }
-  }
-
   public Engine getEngine() {
     return engine;
   }
 
+  @Override
+  public int compareTo(Car o) {
+    return this.name.compareTo(o.getName());
+  }
 
   public void test() {
     System.out.println();
